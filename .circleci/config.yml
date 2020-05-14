@@ -75,7 +75,7 @@ commands:
 
 
 jobs:
-  buildx:
+  singlestage_images:
     working_directory: ~/kathara_images
     machine:
       image: ubuntu-1604:201903-01
@@ -84,12 +84,28 @@ jobs:
       - update-docker
       - install-qemu
       - install-buildx
-      - run: make
+      - run: make TAGS="busybox traefik dnsmasq coredns"
+  multistage_images:
+    working_directory: ~/kathara_images
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - recursive-checkout
+      - update-docker
+      - install-qemu
+      - install-buildx
+      - run: make TAGS="whoami softether"
 
 workflows:
-  buildx-and-push:
+  build_single:
     jobs:
-      - buildx:
+      - singlestage_images:
+          filters:
+              tags:
+                only: /.*/
+  build_multi:
+    jobs:
+      - multistage_images:
           filters:
               tags:
                 only: /.*/
