@@ -51,7 +51,7 @@ commands:
             sudo cp qemu-static-conf/*.conf /lib/binfmt.d/
   install-buildx:
     parameters:
-      url:https://github.com/uniba-ktr/kathara_images.git
+      url:
         description: "Buildx release page"
         type: string
         default: "https://github.com/docker/buildx/releases"
