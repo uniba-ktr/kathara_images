@@ -6,7 +6,7 @@ BINFMT = a7996909642ee92942dcd6cff44b9b95f08dad64
 ifeq ($(REPO),)
   REPO = katharaimages
 endif
-TAGS = busybox traefik whoami dnsmasq coredns
+TAGS = busybox traefik whoami dnsmasq coredns softether
 
 .PHONY: all init $(TAGS) clean
 
@@ -19,7 +19,7 @@ init: clean
 	@docker buildx inspect --bootstrap
 
 $(TAGS):
-	@docker login -u $(DOCKER_USER) -p $(DOCKER_PASS)
+#	@docker login -u $(DOCKER_USER) -p $(DOCKER_PASS)
 	@docker buildx build \
 			--build-arg BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 			--build-arg VCS_REF=$(shell git rev-parse --short HEAD) \

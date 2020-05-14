@@ -7,5 +7,5 @@ FROM alpine
 WORKDIR /app
 ENV PORT 80
 EXPOSE 80
-COPY --from=binary /app/http /app
-CMD ["/app/http"]
+COPY --from=binary /app/http /bin
+CMD ["http"]
