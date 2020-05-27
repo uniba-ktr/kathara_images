@@ -15,7 +15,7 @@ FROM alpine
 
 COPY --from=build /SoftEtherVPN/build /tmp
 
-RUN apk add --no-cache readline && \
+RUN apk add --no-cache readline curl && \
     mv /tmp/*.so /usr/lib/ && \
     mv /tmp/vpn* /tmp/*.se2 /usr/local/bin/
 

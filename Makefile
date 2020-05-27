@@ -6,7 +6,7 @@ BINFMT = a7996909642ee92942dcd6cff44b9b95f08dad64
 ifeq ($(REPO),)
   REPO = katharaimages
 endif
-TAGS = busybox traefik whoami dnsmasq coredns softether
+TAGS = busybox traefik whoami dnsmasq coredns softether iptables
 
 .PHONY: all init $(TAGS) clean
 

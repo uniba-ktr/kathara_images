@@ -84,7 +84,7 @@ jobs:
       - update-docker
       - install-qemu
       - install-buildx
-      - run: make TAGS="busybox traefik dnsmasq coredns"
+      - run: make TAGS="busybox traefik dnsmasq coredns iptables"
   multistage_images:
     working_directory: ~/kathara_images
     machine:

@@ -1,3 +1,3 @@
 FROM alpine
 
-RUN apk add --no-cache dnsmasq
+RUN apk add --no-cache dnsmasq iptables
