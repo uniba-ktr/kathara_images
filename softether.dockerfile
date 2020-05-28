@@ -11,7 +11,7 @@ RUN git submodule update --init --recursive && \
     make -C tmp && \
     make -C tmp install
 
-FROM alpine
+FROM unibaktr/alpine
 
 COPY --from=build /SoftEtherVPN/build /tmp
 

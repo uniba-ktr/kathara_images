@@ -1,4 +1,4 @@
-FROM alpine
+FROM unibaktr/alpine
 ENV URL=https://github.com/containous/traefik/releases/download/
 ENV VERSION=v2.2.1
 

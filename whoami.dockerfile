@@ -3,7 +3,7 @@ ADD ./whoami /app
 WORKDIR /app
 RUN go build -o http
 
-FROM alpine
+FROM unibaktr/alpine
 WORKDIR /app
 ENV PORT 80
 EXPOSE 80

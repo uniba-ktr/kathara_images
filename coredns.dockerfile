@@ -1,4 +1,4 @@
-FROM alpine
+FROM unibaktr/alpine
 ENV URL=https://github.com/coredns/coredns/releases/download/
 ENV VERSION=1.6.9
 
