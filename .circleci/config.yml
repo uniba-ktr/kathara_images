@@ -94,7 +94,7 @@ jobs:
       - update-docker
       - install-qemu
       - install-buildx
-      - run: make TAGS="traefik coredns"
+      - run: make TAGS="traefik coredns quagga frr"
   multistage_images:
     working_directory: ~/kathara_images
     machine:

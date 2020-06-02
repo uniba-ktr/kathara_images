@@ -6,7 +6,7 @@ BINFMT = a7996909642ee92942dcd6cff44b9b95f08dad64
 ifeq ($(REPO),)
   REPO = katharaimages
 endif
-TAGS = latest traefik whoami coredns softether
+TAGS = latest traefik whoami coredns softether quagga frr
 
 .PHONY: all init $(TAGS) clean
 
