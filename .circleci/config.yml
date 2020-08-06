@@ -94,7 +94,7 @@ jobs:
       - update-docker
       - install-qemu
       - install-buildx
-      - run: make TAGS="traefik coredns quagga frr ipv6"
+      - run: make TAGS="traefik coredns quagga frr ipv6 wireguard"
   multistage_images:
     working_directory: ~/kathara_images
     machine:
