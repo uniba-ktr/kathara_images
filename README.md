@@ -1,2 +1,2 @@
 # kathara_images
-Dockerfiles to provide our Images used for Kathara
+Dockerfiles to provide our Images used for Kathara.
