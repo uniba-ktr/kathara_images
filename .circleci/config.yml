@@ -78,32 +78,29 @@ jobs:
   base_image:
     working_directory: ~/kathara_images
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:current
     steps:
       - recursive-checkout
       - update-docker
       - install-qemu
-      - install-buildx
       - run: make TAGS="latest"
   singlestage_images:
     working_directory: ~/kathara_images
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:current
     steps:
       - recursive-checkout
       - update-docker
       - install-qemu
-      - install-buildx
       - run: make TAGS="traefik coredns quagga frr ipv6 wireguard"
   multistage_images:
     working_directory: ~/kathara_images
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:current
     steps:
       - recursive-checkout
       - update-docker
       - install-qemu
-      - install-buildx
       - run: make TAGS="whoami softether"
 
 tag_filter: &tag_filter
