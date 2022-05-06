@@ -1,4 +1,5 @@
 FROM golang:alpine AS binary
+ENV GO111MODULE=off
 ADD ./whoami /app
 WORKDIR /app
 RUN go build -o http
