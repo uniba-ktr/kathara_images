@@ -81,7 +81,6 @@ jobs:
       image: ubuntu-2004:current
     steps:
       - recursive-checkout
-      - update-docker
       - install-qemu
       - run: make TAGS="latest"
   singlestage_images:
@@ -90,7 +89,6 @@ jobs:
       image: ubuntu-2004:current
     steps:
       - recursive-checkout
-      - update-docker
       - install-qemu
       - run: make TAGS="traefik coredns quagga frr ipv6 wireguard"
   multistage_images:
@@ -99,7 +97,6 @@ jobs:
       image: ubuntu-2004:current
     steps:
       - recursive-checkout
-      - update-docker
       - install-qemu
       - run: make TAGS="whoami softether"
 
