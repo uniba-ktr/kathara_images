@@ -112,6 +112,9 @@ tag_filter: &tag_filter
   filters:
     tags:
       only: /.*/
+    branches:
+      only:
+        - master
 
 workflows:
   build_all:
