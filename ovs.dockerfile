@@ -1,6 +1,6 @@
 FROM unibaktr/alpine
 
-RUN apk add -U openvswitch supervisor
+RUN apk add --no-cache openvswitch supervisor
 
 RUN /usr/bin/ovsdb-tool create /etc/openvswitch/conf.db && \
     mkdir -pv /var/run/openvswitch/
