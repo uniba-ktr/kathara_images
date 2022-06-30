@@ -4,7 +4,8 @@ ARG PROFILE=default
 ARG TAG=11.0.8-11.41.23
 ARG JAVA_PATH=/usr/lib/jvm/java-11-openjdk-amd64
 
-RUN apt-get install -y ca-certificates zip python python3 git bzip2 curl unzip openjdk-11-jdk build-essential
+RUN apt-get update && \
+    apt-get install -y ca-certificates zip python python3 git bzip2 curl unzip openjdk-11-jdk build-essential
 
 RUN curl -L -o bazelisk https://github.com/bazelbuild/bazelisk/releases/download/v1.12.0/bazelisk-linux-amd64
 RUN chmod +x bazelisk && mv bazelisk /usr/bin
