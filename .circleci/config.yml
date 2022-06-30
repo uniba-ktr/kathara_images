@@ -82,7 +82,8 @@ jobs:
     steps:
       - recursive-checkout
       - install-qemu
-      - run: make TAGS="latest"
+      - run: make SUBDIRS="base_images"
+      - run: make SUBDIRS="base_images" BASEIMAGE="debian"
   singlestage_images:
     working_directory: ~/kathara_images
     machine:
@@ -90,7 +91,7 @@ jobs:
     steps:
       - recursive-checkout
       - install-qemu
-      - run: make TAGS="traefik coredns quagga frr ipv6 wireguard apache ab"
+      - run: make SUBDIRS="singlestage_images" TAGS="traefik coredns quagga frr ipv6 wireguard apache ab"
   singlestage_images_reduced:
     working_directory: ~/kathara_images
     machine:
@@ -98,7 +99,7 @@ jobs:
     steps:
       - recursive-checkout
       - install-qemu
-      - run: make PLATFORMS="linux/amd64,linux/arm64,linux/arm/v7" TAGS="ovs"
+      - run: make SUBDIRS="singlestage_images" PLATFORMS="linux/amd64,linux/arm64,linux/arm/v7" TAGS="ovs"
   multistage_images:
     working_directory: ~/kathara_images
     machine:
@@ -106,7 +107,7 @@ jobs:
     steps:
       - recursive-checkout
       - install-qemu
-      - run: make TAGS="whoami softether"
+      - run: make SUBDIRS="multistage_images" TAGS="whoami softether"
 
 tag_filter: &tag_filter
   filters:
