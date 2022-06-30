@@ -1,6 +1,7 @@
 FROM debian:stable-slim
 
 ADD ./profile/*.sh /etc/profile.d/
+ADD ./profile/.bashrc /root/
 ENV ENV="/etc/profile"
 ENV DEBIAN_FRONTEND="noninteractive"
 
