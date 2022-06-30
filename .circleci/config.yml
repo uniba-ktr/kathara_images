@@ -107,7 +107,8 @@ jobs:
     steps:
       - recursive-checkout
       - install-qemu
-      - run: make SUBDIRS="multistage_images" TAGS="whoami softether"
+      - run: make SUBDIRS="multistage_images"
+      - run: make SUBDIRS="multistage_images" BASEIMAGE="debian" TAGS="onos"
 
 tag_filter: &tag_filter
   filters:
