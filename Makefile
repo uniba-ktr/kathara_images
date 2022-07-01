@@ -18,7 +18,7 @@ init: clean
 	@docker buildx inspect --bootstrap
 
 $(SUBDIRS): init
-	$(MAKE) PLATFORMS=$(PLATFORMS) REPO=$(REPO) BASEIMAGE=$(BASEIMAGE) -C $@
+	$(MAKE) PLATFORMS=$(PLATFORMS) REPO=$(REPO) BASEIMAGE="$(BASEIMAGE)" -C $@
 
 clean:
 	@docker buildx rm kathara_images_builder | true
