@@ -82,8 +82,7 @@ jobs:
     steps:
       - recursive-checkout
       - install-qemu
-      - run: make SUBDIRS="base_images"
-      - run: make SUBDIRS="base_images" BASEIMAGE="debian"
+      - run: make SUBDIRS="base_images" BASEIMAGE="debian alpine"
   singlestage_images:
     working_directory: ~/kathara_images
     machine:
@@ -101,7 +100,7 @@ jobs:
       - recursive-checkout
       - install-qemu
       - run: make SUBDIRS="multistage_images"
-      - run: make SUBDIRS="multistage_images" PLATFORMS="linux/amd64,linux/arm64,linux/arm/v7" BASEIMAGE="debian" TAGS="onos"
+      - run: make SUBDIRS="multistage_images" PLATFORMS="linux/amd64" BASEIMAGE="debian" TAGS="onos"
 
 tag_filter: &tag_filter
   filters:
