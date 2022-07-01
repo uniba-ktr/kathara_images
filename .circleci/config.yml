@@ -92,7 +92,7 @@ jobs:
       - recursive-checkout
       - install-qemu
       - run: make SUBDIRS="singlestage_images" TAGS="traefik coredns quagga frr ipv6 wireguard apache ab"
-      - run: make SUBDIRS="singlestage_images" PLATFORMS="linux/amd64,linux/arm64,linux/arm/v7" TAGS="ovs"      
+      - run: make SUBDIRS="singlestage_images" PLATFORMS="linux/amd64,linux/arm64,linux/arm/v7" TAGS="ovs"
   multistage_images:
     working_directory: ~/kathara_images
     machine:
@@ -117,10 +117,6 @@ workflows:
       - base_image:
           <<: *tag_filter
       - singlestage_images:
-          requires:
-            - base_image
-          <<: *tag_filter
-      - singlestage_images_reduced:
           requires:
             - base_image
           <<: *tag_filter
