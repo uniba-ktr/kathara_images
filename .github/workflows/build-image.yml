@@ -18,6 +18,8 @@ jobs:
     strategy:
       matrix:
         base_images: [alpine, debian]
+        singlestage_images: [ab, apache, coredns, frr, ipv6, ovs, quagga, traefik, wireguard]
+        multistage_images: [onos, softether, whoami]
 
     runs-on: ubuntu-latest
     steps:
