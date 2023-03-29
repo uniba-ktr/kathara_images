@@ -83,8 +83,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Variables
-        run: echo ${{ env.BUILD_DATE }}
+      - name: Set time
+        run: echo "BUILD_DATE=$(date +%s)" >> ${GITHUB_ENV}
+      - name: downcase REPO
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
       - name: Checkout
         uses: actions/checkout@v3.4.0
       # https://github.com/docker/setup-qemu-action
@@ -109,8 +111,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.multistage_images }}
           tags: |
-            type=sha,prefix={{branch}}-
-            type=raw,value=${{ env.BUILD_DATE }}-{{branch}}
+            type=sha,prefix=${{ env.BUILD_DATE }}-
+            type=raw,value={{branch}}
 
 
       - name: Build and push
@@ -123,7 +125,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${{ env.BUILD_DATE }}-{{branch}}
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${GITHUB_REF_NAME}
 
       - name: List images
         run: docker image ls
