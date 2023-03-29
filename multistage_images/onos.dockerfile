@@ -1,4 +1,5 @@
-FROM unibaktr/debian AS builder
+ARG image=unibaktr/debian
+FROM $image AS builder
 ARG JOBS=2
 ARG PROFILE=default
 ARG TAG=11.0.8-11.41.23
@@ -25,7 +26,7 @@ RUN mkdir /output
 RUN tar -xf bazel-bin/onos.tar.gz -C /output --strip-components=1
 
 ## Second and final stage is the runtime environment.
-FROM unibaktr/debian
+FROM $image
 
 RUN apt-get update && apt-get install -y curl openjdk-11-jre openssh-server && \
     rm -rf /var/lib/apt/lists/*
