@@ -15,6 +15,10 @@ on:
 jobs:
 
   build:
+    strategy:
+      matrix:
+        base_images: [alpine, debian]
+
     runs-on: ubuntu-latest
     steps:
 
@@ -25,4 +29,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3.4.0
     - name: Build the base images
-      run: docker build base_images/ -f base_images/alpine.dockerfile --build-arg BUILD_DATE=${{ env.BUILD_DATE }} --build-arg VCS_REF=$(shell git rev-parse --short HEAD) --build-arg VCS_URL=$(shell git config --get remote.origin.url) --tag ${{ env.REGISTRY }}/${{ env.REPO }}:alpine-${{ env.BUILD_DATE }}
+      run: docker build base_images/ -f base_images/${{ matrix.base_images }}.dockerfile --build-arg BUILD_DATE=${{ env.BUILD_DATE }} --build-arg VCS_REF=$(shell git rev-parse --short HEAD) --build-arg VCS_URL=$(shell git config --get remote.origin.url) --tag ${{ env.REGISTRY }}/${{ env.REPO }}:${{ matrix.base_images }}-${{ env.BUILD_DATE }}
+    - name: List images
+      run: docker image ls
