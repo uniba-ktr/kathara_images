@@ -50,8 +50,8 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.base_images }}
         tags: |
-          type=sha,prefix={{branch}}-
-          type=raw,value=${{ env.BUILD_DATE }}-{{branch}}
+          type=sha,prefix=${{ env.BUILD_DATE }}-
+          type=raw,value={{branch}}
 
     - name: Build and push
       uses: docker/build-push-action@v4.0.0
