@@ -125,7 +125,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${GITHUB_REF_NAME}
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${{ github.ref_name }}
 
       - name: List images
         run: docker image ls
