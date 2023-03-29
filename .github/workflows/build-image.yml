@@ -124,5 +124,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${{ env.BUILD_DATE }}-{{branch}}
+            
       - name: List images
         run: docker image ls
