@@ -1,4 +1,5 @@
-FROM alpine as build
+ARG image=unibaktr/alpine
+FROM $image as build
 ENV URL https://github.com/SoftEtherVPN/SoftEtherVPN_Stable/releases/download/
 ENV VERSION 5.01.9674
 ENV USE_MUSL YES
@@ -11,7 +12,7 @@ RUN git submodule update --init --recursive && \
     make -C tmp && \
     make -C tmp install
 
-FROM unibaktr/alpine
+FROM $image
 
 COPY --from=build /SoftEtherVPN/build /tmp
 
