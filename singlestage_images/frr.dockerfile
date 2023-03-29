@@ -1,4 +1,5 @@
-FROM unibaktr/alpine
+ARG image=unibaktr/alpine
+FROM $image
 
 RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \

@@ -1,4 +1,5 @@
-FROM unibaktr/alpine
+ARG image=unibaktr/alpine
+FROM $image
 
 RUN apk add --no-cache apache2 php8 php8-apache2 && \
     mv /var/www/localhost/htdocs/index.html /var/www/localhost/htdocs/index.bck

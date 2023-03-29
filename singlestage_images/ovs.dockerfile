@@ -1,4 +1,5 @@
-FROM unibaktr/alpine
+ARG image=unibaktr/alpine
+FROM $image
 
 RUN apk add --no-cache openvswitch supervisor
 

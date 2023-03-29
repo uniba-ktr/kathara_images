@@ -1,4 +1,5 @@
-FROM unibaktr/alpine
+ARG image=unibaktr/alpine
+FROM $image
 ENV URL=https://github.com/containous/traefik/releases/download/
 ENV VERSION=v2.2.1
 
