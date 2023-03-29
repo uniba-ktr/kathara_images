@@ -48,7 +48,10 @@ jobs:
       id: meta
       uses: docker/metadata-action@v4.3.0
       with:
-        images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.base_images }}:${{ env.BUILD_DATE }}
+        images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.base_images }}
+        tags: |
+          type=sha,prefix={{branch}}-
+          type=raw,value=${{ env.BUILD_DATE }}-{{branch}}
 
     - name: Build and push
       uses: docker/build-push-action@v4.0.0
@@ -116,6 +119,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${{ env.BUILD_DATE }}
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${{ env.BUILD_DATE }}-{{branch}}
       - name: List images
         run: docker image ls
