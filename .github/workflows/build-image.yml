@@ -21,22 +21,22 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v3.4.0
-#    - name: Set up Docker Buildx
-#      uses: docker/setup-buildx-action@v2
-#    - name: Build and export
-#      uses: docker/build-push-action@v4
-#      with:
-#        context: ./base_images/
-#        file: ./base_images/${{ matrix.base_images }}.dockerfile
-#        outputs: type=docker,dest=/tmp/${{ matrix.base_images }}.tar
-#        tags: ${{ env.REGISTRY }}/${{ matrix.base_images }}
-#    - name: Upload artifact
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: ${{ matrix.base_images }}
-#        path: /tmp/${{ matrix.base_images }}.tar
-#
-#
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    - name: Build and export
+      uses: docker/build-push-action@v4
+      with:
+        context: ./base_images/
+        file: ./base_images/${{ matrix.base_images }}.dockerfile
+        outputs: type=docker,dest=/tmp/${{ matrix.base_images }}.tar
+        tags: ${{ env.REGISTRY }}/${{ matrix.base_images }}
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.base_images }}
+        path: /tmp/${{ matrix.base_images }}.tar
+
+
 #   simple_build:
 #     needs: base_images
 #     strategy:
