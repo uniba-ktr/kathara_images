@@ -56,9 +56,11 @@ jobs:
          docker load --input /tmp/alpine.tar
          docker image ls -a
 
-     - name: Build
-       run: docker build ./singlestage_images/ -f ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile --load -t ${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }} --build-args: image=${{ env.REGISTRY }}/alpine
-#
+     - name: Build ${{ matrix.singlestage_images }}
+       run: |
+         docker build ./singlestage_images/ -f ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile --load -t ${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }} --build-args: image=${{ env.REGISTRY }}/alpine
+
+
 #       - name: List images
 #         run: docker image ls
 
