@@ -29,14 +29,14 @@ jobs:
         context: ./base_images/
         file: ./base_images/${{ matrix.base_images }}.dockerfile
         outputs: type=docker,dest=/tmp/${{ matrix.base_images }}.tar
-        tags: ${{ env.REGISTRY }}/${{ matrix.base_images }}
+        tags: ${{ env.REGISTRY }}/${{ matrix.base_images }}:${{ env.BRANCH_NAME }}
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.base_images }}
         path: /tmp/${{ matrix.base_images }}.tar
 
-  simple_build:
+  singlestage_images:
     needs: base_images
     strategy:
       matrix:
@@ -58,117 +58,61 @@ jobs:
 
      - name: Build ${{ matrix.singlestage_images }}
        run: |
-         docker build ./singlestage_images/ -f ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile -t ${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }} --build-arg image=${{ env.REGISTRY }}/alpine
+         docker build ./singlestage_images/ -f ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile -t ${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }} --build-arg image=${{ env.REGISTRY }}/alpine:${{ env.BRANCH_NAME }}
 
+     - name: List images
+       run: docker image ls -a
 
-#       - name: List images
-#         run: docker image ls
+  multistage_images_alpine:
+    needs: base_images
+    strategy:
+      matrix:
+        multistage_images: [softether, whoami]
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout
+       uses: actions/checkout@v3.4.0
+     # https://github.com/docker/setup-buildx-action
+     - name: Download artifact
+       uses: actions/download-artifact@v3
+       with:
+         name: alpine
+         path: /tmp
+     - name: Load image
+       run: |
+         docker load --input /tmp/alpine.tar
+         docker image ls -a
 
-  #singlestage_images:
-  #  needs: base_images
-  #  strategy:
-  #    matrix:
-  #      singlestage_images: [ab, apache, coredns, frr, ipv6, ovs, quagga, traefik, wireguard]
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - name: Checkout
-  #      uses: actions/checkout@v3.4.0
-  #    # https://github.com/docker/setup-buildx-action
-  #    - name: Set up Docker Buildx
-  #      id: buildx
-  #      uses: docker/setup-buildx-action@v2.5.0
-  #    - name: Download artifact
-  #      uses: actions/download-artifact@v3
-  #      with:
-  #        name: alpine
-  #        path: /tmp
-  #    - name: Load image
-  #      run: |
-  #        docker load --input /tmp/alpine.tar
-  #        docker image ls -a
+     - name: Build ${{ matrix.multistage_images }}
+       run: |
+         docker build ./multistage_images/ -f ./multistage_images/${{ matrix.multistage_images }}.dockerfile -t ${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }} --build-arg image=${{ env.REGISTRY }}/alpine:${{ env.BRANCH_NAME }}
 
-  #    - name: Build and push
-  #      uses: docker/build-push-action@v4.0.0
-  #      with:
-  #        context: ./singlestage_images/
-  #        file: ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile
-  #        load: true
-  #        tags: ${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }}
-  #        build-args: |
-  #          image=${{ env.REGISTRY }}/alpine
+     - name: List images
+       run: docker image ls -a
 
-  #    - name: List images
-  #      run: docker image ls
+  multistage_images_debian:
+    needs: base_images
+    strategy:
+      matrix:
+        multistage_images: [onos]
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout
+       uses: actions/checkout@v3.4.0
+     # https://github.com/docker/setup-buildx-action
+     - name: Download artifact
+       uses: actions/download-artifact@v3
+       with:
+         name: debian
+         path: /tmp
+     - name: Load image
+       run: |
+         docker load --input /tmp/debian.tar
+         docker image ls -a
 
+     - name: Build ${{ matrix.multistage_images }}
+       run: |
+         docker build ./multistage_images/ -f ./multistage_images/${{ matrix.multistage_images }}.dockerfile -t ${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }} --build-arg image=${{ env.REGISTRY }}/debian:${{ env.BRANCH_NAME }}
 
-  #multistage_images_alpine:
-  #  needs: base_images
-  #  strategy:
-  #    matrix:
-  #      multistage_images: [softether, whoami]
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - name: Checkout
-  #      uses: actions/checkout@v3.4.0
-  #    # https://github.com/docker/setup-buildx-action
-  #    - name: Set up Docker Buildx
-  #      id: buildx
-  #      uses: docker/setup-buildx-action@v2.5.0
-  #    - name: Download artifact
-  #      uses: actions/download-artifact@v3
-  #      with:
-  #        name: alpine
-  #        path: /tmp
-  #    - name: Load image
-  #      run: |
-  #        docker load --input /tmp/alpine.tar
-  #        docker image ls -a
-
-  #    - name: Build and push
-  #      uses: docker/build-push-action@v4.0.0
-  #      with:
-  #        context: ./multistage_images/
-  #        file: ./multistage_images/${{ matrix.multistage_images }}.dockerfile
-  #        load: true
-  #        tags: ${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }}
-  #        build-args: |
-  #          image=${{ env.REGISTRY }}/alpine
-
-  #    - name: List images
-  #      run: docker image ls
-
-  #multistage_images_debian:
-  #  needs: base_images
-  #  strategy:
-  #    matrix:
-  #      multistage_images: [onos]
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - name: Checkout
-  #      uses: actions/checkout@v3.4.0
-  #    # https://github.com/docker/setup-buildx-action
-  #    - name: Set up Docker Buildx
-  #      id: buildx
-  #      uses: docker/setup-buildx-action@v2.5.0
-  #    - name: Download artifact
-  #      uses: actions/download-artifact@v3
-  #      with:
-  #        name: debian
-  #        path: /tmp
-  #    - name: Load image
-  #      run: |
-  #        docker load --input /tmp/debian.tar
-  #        docker image ls -a
-
-  #    - name: Build and push
-  #      uses: docker/build-push-action@v4.0.0
-  #      with:
-  #        context: ./multistage_images/
-  #        file: ./multistage_images/${{ matrix.multistage_images }}.dockerfile
-  #        load: true
-  #        tags: ${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }}
-  #        build-args: |
-  #          image=${{ env.REGISTRY }}/debian
-
-  #    - name: List images
-  #      run: docker image ls
+     - name: List images
+       run: docker image ls -a
