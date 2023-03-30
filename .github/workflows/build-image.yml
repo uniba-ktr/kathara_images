@@ -66,6 +66,7 @@ jobs:
           file: ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile
           load: true
           tags: ${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }}
+          pull: false
           build-args: |
             image=alpine:${{ env.BRANCH_NAME }}
 
@@ -103,6 +104,7 @@ jobs:
           file: ./multistage_images/${{ matrix.multistage_images }}.dockerfile
           load: true
           tags: ${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }}
+          pull: false
           build-args: |
             image=alpine:${{ env.BRANCH_NAME }}
 
@@ -139,6 +141,7 @@ jobs:
           file: ./multistage_images/${{ matrix.multistage_images }}.dockerfile
           load: true
           tags: ${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }}
+          pull: false
           build-args: |
             image=debian:${{ env.BRANCH_NAME }}
 
