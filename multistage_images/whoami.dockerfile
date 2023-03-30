@@ -5,7 +5,7 @@ ADD ./whoami /app
 WORKDIR /app
 RUN go build -o http
 
-FROM $imag
+FROM $image
 WORKDIR /app
 ENV PORT 80
 EXPOSE 80
