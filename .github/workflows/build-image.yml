@@ -2,6 +2,7 @@ name: Docker Image CI
 
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+  REGISTRY: local
 
 on:
   push:
@@ -28,7 +29,7 @@ jobs:
         context: ./base_images/
         file: ./base_images/${{ matrix.base_images }}.dockerfile
         outputs: type=docker,dest=/tmp/${{ matrix.base_images }}.tar
-        tags: ${{ matrix.base_images }}
+        tags: ${{ env.REGISTRY }}/${{ matrix.base_images }}
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
@@ -67,7 +68,7 @@ jobs:
           load: true
           tags: ${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }}
           build-args: |
-            image=alpine
+            image=${{ env.REGISTRY }}/alpine
 
       - name: List images
         run: docker image ls
@@ -104,7 +105,7 @@ jobs:
           load: true
           tags: ${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }}
           build-args: |
-            image=alpine
+            image=${{ env.REGISTRY }}/alpine
 
       - name: List images
         run: docker image ls
@@ -140,7 +141,7 @@ jobs:
           load: true
           tags: ${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }}
           build-args: |
-            image=debian
+            image=${{ env.REGISTRY }}/debian
 
       - name: List images
         run: docker image ls
