@@ -1,4 +1,4 @@
-name: Local Build
+name: Push to ghcr.io
 
 env:
   REGISTRY: ghcr.io
