@@ -58,7 +58,7 @@ jobs:
 
      - name: Build ${{ matrix.singlestage_images }}
        run: |
-         docker build ./singlestage_images/ -f ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile -t ${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }} --build-args: image=${{ env.REGISTRY }}/alpine
+         docker build ./singlestage_images/ -f ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile -t ${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }} --build-arg image=${{ env.REGISTRY }}/alpine
 
 
 #       - name: List images
