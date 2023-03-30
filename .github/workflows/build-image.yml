@@ -28,7 +28,7 @@ jobs:
         context: ./base_images/
         file: ./base_images/${{ matrix.base_images }}.dockerfile
         outputs: type=docker,dest=/tmp/${{ matrix.base_images }}.tar
-        tags: ${{ matrix.base_images }}:${{ env.BRANCH_NAME }}
+        tags: ${{ matrix.base_images }}
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
@@ -66,9 +66,8 @@ jobs:
           file: ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile
           load: true
           tags: ${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }}
-          pull: false
           build-args: |
-            image=alpine:${{ env.BRANCH_NAME }}
+            image=alpine
 
       - name: List images
         run: docker image ls
@@ -104,9 +103,8 @@ jobs:
           file: ./multistage_images/${{ matrix.multistage_images }}.dockerfile
           load: true
           tags: ${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }}
-          pull: false
           build-args: |
-            image=alpine:${{ env.BRANCH_NAME }}
+            image=alpine
 
       - name: List images
         run: docker image ls
@@ -141,9 +139,8 @@ jobs:
           file: ./multistage_images/${{ matrix.multistage_images }}.dockerfile
           load: true
           tags: ${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }}
-          pull: false
           build-args: |
-            image=debian:${{ env.BRANCH_NAME }}
+            image=debian
 
       - name: List images
         run: docker image ls
