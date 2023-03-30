@@ -46,9 +46,8 @@ jobs:
       uses: docker/metadata-action@v4.3.0
       with:
         images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.base_images }}
-        tags: |
-          type=sha,prefix=${{ env.BRANCH_NAME }}-
-          type=raw,value=${{ env.BRANCH_NAME }}
+        flavor: |
+          latest=auto
 
     - name: Build and push
       uses: docker/build-push-action@v4.0.0
@@ -95,9 +94,8 @@ jobs:
         uses: docker/metadata-action@v4.3.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.singlestage_images }}
-          tags: |
-            type=sha,prefix=${{ env.BUILD_DATE }}-
-            type=raw,value=${{ env.BRANCH_NAME }}
+          flavor: |
+            latest=auto
 
 
       - name: Build and push
@@ -110,7 +108,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${{ env.BRANCH_NAME }}
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine
 
       - name: List images
         run: docker image ls
@@ -150,9 +148,8 @@ jobs:
         uses: docker/metadata-action@v4.3.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.multistage_images }}
-          tags: |
-            type=sha,prefix=${{ env.BUILD_DATE }}-
-            type=raw,value=${{ env.BRANCH_NAME }}
+          flavor: |
+            latest=auto
 
       - name: Build and push
         uses: docker/build-push-action@v4.0.0
@@ -164,7 +161,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${{ env.BRANCH_NAME }}
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine
 
       - name: List images
         run: docker image ls
@@ -203,9 +200,8 @@ jobs:
         uses: docker/metadata-action@v4.3.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.multistage_images }}
-          tags: |
-            type=sha,prefix=${{ env.BUILD_DATE }}-
-            type=raw,value=${{ env.BRANCH_NAME }}
+          flavor: |
+            latest=auto
 
       - name: Build and push
         uses: docker/build-push-action@v4.0.0
@@ -217,7 +213,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/debian:${{ env.BRANCH_NAME }}
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/debian
 
       - name: List images
         run: docker image ls
