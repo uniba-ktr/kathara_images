@@ -15,7 +15,7 @@ on:
 
 jobs:
 
-  base_images:
+  simple_base_images:
     strategy:
       matrix:
         base_images: [alpine, debian]
@@ -39,7 +39,7 @@ jobs:
         name: ${{ matrix.base_images }}
         path: /tmp/${{ matrix.base_images }}.tar
 
-  singlestage_images:
+  simple_singlestage_images:
     needs: base_images
     strategy:
       matrix:
@@ -66,7 +66,7 @@ jobs:
      - name: List images
        run: docker image ls -a
 
-  multistage_images_alpine:
+  simple_multistage_images_alpine:
     needs: base_images
     strategy:
       matrix:
@@ -93,7 +93,7 @@ jobs:
      - name: List images
        run: docker image ls -a
 
-  multistage_images_debian:
+  simple_multistage_images_debian:
     needs: base_images
     strategy:
       matrix:
