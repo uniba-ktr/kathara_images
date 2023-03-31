@@ -47,7 +47,10 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.base_images }}
         flavor: |
-          latest=auto
+          latest=true
+        tags: |
+          type=raw,value=latest,enable={{is_default_branch}}
+          type=ref,event=branch
 
     - name: Build and push
       uses: docker/build-push-action@v4.0.0
@@ -95,7 +98,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.singlestage_images }}
           flavor: |
-            latest=auto
+            latest=true
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
 
 
       - name: Build and push
@@ -108,7 +114,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${{ env.BRANCH_NAME }}
 
       - name: List images
         run: docker image ls
@@ -149,7 +155,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.multistage_images }}
           flavor: |
-            latest=auto
+            latest=true
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
 
       - name: Build and push
         uses: docker/build-push-action@v4.0.0
@@ -161,7 +170,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${{ env.BRANCH_NAME }}
 
       - name: List images
         run: docker image ls
@@ -201,7 +210,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.multistage_images }}
           flavor: |
-            latest=auto
+            latest=true
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
 
       - name: Build and push
         uses: docker/build-push-action@v4.0.0
@@ -213,7 +225,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/debian
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/debian:${{ env.BRANCH_NAME }}
 
       - name: List images
         run: docker image ls
