@@ -47,7 +47,10 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.base_images }}
         flavor: |
-          latest=auto
+          latest=true
+        tags: |
+          type=raw,value=latest,enable={{is_default_branch}}
+          type=ref,event=branch
 
     - name: Build and push
       uses: docker/build-push-action@v4.0.0
@@ -95,7 +98,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.singlestage_images }}
           flavor: |
-            latest=auto
+            latest=true
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
 
 
       - name: Build and push
@@ -149,7 +155,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.multistage_images }}
           flavor: |
-            latest=auto
+            latest=true
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
 
       - name: Build and push
         uses: docker/build-push-action@v4.0.0
@@ -201,7 +210,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPO }}/${{ matrix.multistage_images }}
           flavor: |
-            latest=auto
+            latest=true
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
 
       - name: Build and push
         uses: docker/build-push-action@v4.0.0
