@@ -108,7 +108,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${{ env.BRANCH_NAME }}
 
       - name: List images
         run: docker image ls
@@ -161,7 +161,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/alpine:${{ env.BRANCH_NAME }}
 
       - name: List images
         run: docker image ls
@@ -213,7 +213,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=${{ env.REGISTRY }}/${{ env.REPO }}/debian
+            image=${{ env.REGISTRY }}/${{ env.REPO }}/debian:${{ env.BRANCH_NAME }}
 
       - name: List images
         run: docker image ls
