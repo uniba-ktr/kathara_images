@@ -64,7 +64,7 @@ jobs:
        uses: docker/build-push-action@v4
        with:
          context: ./singlestage_images/
-         file: ./singlestage_images/${{ matrix.base_images }}.dockerfile
+         file: ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile
          push: false
          load: true
          tags: ${{ env.REGISTRY }}/${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }}
@@ -101,7 +101,7 @@ jobs:
        uses: docker/build-push-action@v4
        with:
          context: ./singlestage_images/
-         file: ./singlestage_images/${{ matrix.base_images }}.dockerfile
+         file: ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile
          push: false
          load: true
          tags: ${{ env.REGISTRY }}/${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }}
@@ -139,7 +139,7 @@ jobs:
        uses: docker/build-push-action@v4
        with:
          context: ./multistage_images/
-         file: ./multistage_images/${{ matrix.base_images }}.dockerfile
+         file: ./multistage_images/${{ matrix.multistage_images }}.dockerfile
          push: false
          load: true
          tags: ${{ env.REGISTRY }}/${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }}
@@ -176,7 +176,7 @@ jobs:
        uses: docker/build-push-action@v4
        with:
          context: ./multistage_images/
-         file: ./multistage_images/${{ matrix.base_images }}.dockerfile
+         file: ./multistage_images/${{ matrix.multistage_images }}.dockerfile
          push: false
          load: true
          tags: ${{ env.REGISTRY }}/${{ matrix.multistage_images }}:${{ env.BRANCH_NAME }}
