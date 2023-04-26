@@ -14,7 +14,6 @@ on:
         - 'main'
 
 jobs:
-
   simple_base_images:
     strategy:
       matrix:
