@@ -106,7 +106,7 @@ jobs:
          load: true
          tags: ${{ env.REGISTRY }}/${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }}
          build-args: |
-           image=${{ env.REGISTRY }}/alpine:${{ env.BRANCH_NAME }}
+           image=${{ env.REGISTRY }}/debian:${{ env.BRANCH_NAME }}
 
      - name: List images
        run: docker image ls -a
