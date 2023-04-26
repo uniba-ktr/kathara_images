@@ -59,46 +59,46 @@ jobs:
          docker load --input /tmp/alpine.tar
          docker image ls -a
      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-        with:
+       uses: docker/setup-buildx-action@v2
+       with:
           driver: docker
-    - name: Build and export
-      uses: docker/build-push-action@v4
-      with:
-        context: ./singlestage_images/
-        file: ./singlestage_images/${{ matrix.base_images }}.dockerfile
-        push: false
-        load: true
-        tags: ${{ env.REGISTRY }}/${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }}
-        build-args: |
-          image=${{ env.REGISTRY }}/alpine:${{ env.BRANCH_NAME }}
+     - name: Build and export
+       uses: docker/build-push-action@v4
+       with:
+         context: ./singlestage_images/
+         file: ./singlestage_images/${{ matrix.base_images }}.dockerfile
+         push: false
+         load: true
+         tags: ${{ env.REGISTRY }}/${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }}
+         build-args: |
+           image=${{ env.REGISTRY }}/alpine:${{ env.BRANCH_NAME }}
 
      - name: List images
        run: docker image ls -a
 
-    simple_singlestage_images_debian:
-      needs: simple_base_images
-      strategy:
-        matrix:
-          singlestage_images: [p4]
-      runs-on: ubuntu-latest
-      steps:
-       - name: Checkout
-         uses: actions/checkout@v3.4.0
-       # https://github.com/docker/setup-buildx-action
-       - name: Download artifact
-         uses: actions/download-artifact@v3
-         with:
-           name: debian
-           path: /tmp
-       - name: Load image
-         run: |
-           docker load --input /tmp/debian.tar
-           docker image ls -a
-       - name: Set up Docker Buildx
-          uses: docker/setup-buildx-action@v2
-          with:
-            driver: docker
+   simple_singlestage_images_debian:
+     needs: simple_base_images
+     strategy:
+       matrix:
+         singlestage_images: [p4]
+     runs-on: ubuntu-latest
+     steps:
+      - name: Checkout
+        uses: actions/checkout@v3.4.0
+      # https://github.com/docker/setup-buildx-action
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: debian
+          path: /tmp
+      - name: Load image
+        run: |
+          docker load --input /tmp/debian.tar
+          docker image ls -a
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+           driver: docker
       - name: Build and export
         uses: docker/build-push-action@v4
         with:
@@ -110,8 +110,8 @@ jobs:
           build-args: |
             image=${{ env.REGISTRY }}/alpine:${{ env.BRANCH_NAME }}
 
-       - name: List images
-         run: docker image ls -a
+      - name: List images
+        run: docker image ls -a
 
   simple_multistage_images_alpine:
     needs: simple_base_images
@@ -134,8 +134,8 @@ jobs:
          docker image ls -a
 
      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-        with:
+       uses: docker/setup-buildx-action@v2
+       with:
           driver: docker
      - name: Build and export
        uses: docker/build-push-action@v4
@@ -171,8 +171,8 @@ jobs:
          docker load --input /tmp/debian.tar
          docker image ls -a
      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-        with:
+       uses: docker/setup-buildx-action@v2
+       with:
           driver: docker
      - name: Build and export
        uses: docker/build-push-action@v4
