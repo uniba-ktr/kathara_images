@@ -14,7 +14,7 @@ jobs:
   base_images:
     strategy:
       matrix:
-        base_images: [alpine, debian]
+        base_images: [alpine, debian, ubuntu]
 
     runs-on: ubuntu-latest
     steps:
@@ -112,7 +112,7 @@ jobs:
       - name: List images
         run: docker image ls
 
-  singlestage_images_debian:
+  singlestage_images_ubuntu:
     needs: base_images
     strategy:
       matrix:
@@ -144,7 +144,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4.3.0
         with:
-          images: unibaktr/debian
+          images: unibaktr/ubuntu
           flavor: |
             latest=false
           tags: |
@@ -155,12 +155,12 @@ jobs:
         with:
           context: ./singlestage_images/
           file: ./singlestage_images/${{ matrix.singlestage_images }}.dockerfile
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            image=unibaktr/debian
+            image=unibaktr/ubuntu
 
       - name: List images
         run: docker image ls
