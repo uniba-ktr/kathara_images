@@ -4,7 +4,7 @@ ADD ./profile/*.sh /etc/profile.d/
 ADD ./profile/.bashrc /root/
 ENV ENV="/etc/profile"
 
-RUN apk add --no-cache busybox bash curl bind-tools iptables dnsmasq vim nano rsync tcpdump python3 py3-pip
+RUN apk add --no-cache busybox bash curl bind-tools iptables iperf dnsmasq vim nano rsync tcpdump python3 py3-pip
 
 RUN python3 -m pip install --no-cache-dir --upgrade pip && \
     python3 -m pip install --no-cache-dir scapy
