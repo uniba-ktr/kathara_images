@@ -26,7 +26,8 @@ RUN apt update && \
 	libssl-dev \
 	libtool \
 	llvm \
-	protobuf-compiler && \
+	protobuf-compiler \
+  wget && \
   apt clean && \
   rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/
 
