@@ -2,11 +2,11 @@ ARG image=unibaktr/debian
 FROM $image AS builder
 ARG JOBS=2
 ARG PROFILE=default
-ARG TAG=11.0.8-11.41.23
-ARG JAVA_PATH=/usr/lib/jvm/java-11-openjdk-amd64
+ARG TAG=11.0.13-11.52.13
+ARG JAVA_PATH=/usr/lib/jvm/java-17-openjdk-amd64
 
 RUN apt-get update && \
-    apt-get install -y ca-certificates zip python python3 git bzip2 curl unzip openjdk-11-jdk build-essential
+    apt-get install -y ca-certificates zip python3 git bzip2 curl unzip openjdk-17-jdk build-essential
 
 RUN curl -L -o bazelisk https://github.com/bazelbuild/bazelisk/releases/download/v1.12.0/bazelisk-linux-amd64
 RUN chmod +x bazelisk && mv bazelisk /usr/bin
@@ -28,7 +28,7 @@ RUN tar -xf bazel-bin/onos.tar.gz -C /output --strip-components=1
 ## Second and final stage is the runtime environment.
 FROM $image
 
-RUN apt-get update && apt-get install -y curl openjdk-11-jre openssh-server && \
+RUN apt-get update && apt-get install -y curl openjdk-17-jre openssh-server && \
     rm -rf /var/lib/apt/lists/*
 
 # Install ONOS in /root/onos
@@ -36,7 +36,7 @@ COPY --from=builder /output/ /root/onos/
 WORKDIR /root/onos
 
 # Set JAVA_HOME (by default not exported by zulu images)
-ARG JAVA_PATH=/usr/lib/jvm/java-11-openjdk-amd64
+ARG JAVA_PATH=/usr/lib/jvm/java-17-openjdk-amd64
 ENV JAVA_HOME ${JAVA_PATH}
 
 # Ports
