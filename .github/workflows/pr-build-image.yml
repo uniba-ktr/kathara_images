@@ -67,7 +67,7 @@ jobs:
     needs: base_images
     strategy:
       matrix:
-        singlestage_images: [ab, apache, coredns, frr, ipv6, ovs, quagga, traefik, wireguard]
+        singlestage_images: [ab, apache, coredns, frr, ipv6, quagga, traefik, wireguard]
     runs-on: ubuntu-latest
     steps:
       - name: Set time
@@ -234,7 +234,7 @@ jobs:
     needs: base_images
     strategy:
       matrix:
-        multistage_images: [onos]
+        multistage_images: [onos, ovs]
     runs-on: ubuntu-latest
     steps:
       - name: Set time

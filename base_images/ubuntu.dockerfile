@@ -11,8 +11,7 @@ RUN apt-get update && apt-get install -y \
     iproute2 iptables busybox dnsmasq curl vim nano rsync gpg procps net-tools iperf tcpdump traceroute iputils-ping iputils-tracepath python3 python3-pip && \
     rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install --no-cache-dir --upgrade pip && \
-    python3 -m pip install --no-cache-dir scapy
+RUN python3 -m pip install --break-system-packages --no-cache-dir scapy
 
 
 WORKDIR /
