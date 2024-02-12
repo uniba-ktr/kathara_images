@@ -60,7 +60,8 @@ ARG ZULU_REPO_VER=1.0.0-3
 
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9 && \
     curl -sLO https://cdn.azul.com/zulu/bin/zulu-repo_${ZULU_REPO_VER}_all.deb && \
-    dpkg -i zulu-repo_${ZULU_REPO_VER}_all.deb
+    dpkg -i zulu-repo_${ZULU_REPO_VER}_all.deb && \
+    rm zulu-repo_${ZULU_REPO_VER}_all.deb
 
 RUN apt-get update && apt-get install -y curl zulu11-jre openssh-server supervisor dmidecode && \
     rm -rf /var/lib/apt/lists/*
