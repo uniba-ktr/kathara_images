@@ -68,7 +68,8 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361
     dpkg -i zulu-repo_${ZULU_REPO_VER}_all.deb && \
     rm zulu-repo_${ZULU_REPO_VER}_all.deb
 
-RUN apt-get update && apt-get install -y curl zulu11-jre openssh-server supervisor dmidecode && \
+RUN echo "Package: zulu11-*\nPin: version 11.0.13-*\nPin-Priority: 1001" > /etc/apt/preferences
+RUN apt-get update && apt-get install -y curl zulu11-jre=11.0.13-* openssh-server supervisor dmidecode && \
     rm -rf /var/lib/apt/lists/*
 
 ADD onos/supervisord.conf /etc/supervisord.conf
