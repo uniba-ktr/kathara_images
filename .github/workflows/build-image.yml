@@ -41,7 +41,7 @@ jobs:
     needs: simple_base_images
     strategy:
       matrix:
-        singlestage_images: [ab, apache, coredns, frr, ipv6, quagga, traefik, wireguard]
+        singlestage_images: [ab, apache, coredns, frr, ipv6, quagga, traefik, wireguard, sflowrt]
     runs-on: ubuntu-latest
     steps:
      - name: Checkout
@@ -115,7 +115,7 @@ jobs:
     needs: simple_base_images
     strategy:
       matrix:
-        multistage_images: [softether, whoami]
+        multistage_images: [softether, whoami, ovs]
     runs-on: ubuntu-latest
     steps:
      - name: Checkout
@@ -153,7 +153,7 @@ jobs:
     needs: simple_base_images
     strategy:
       matrix:
-        multistage_images: [onos, ovs]
+        multistage_images: [onos]
     runs-on: ubuntu-latest
     steps:
      - name: Checkout
