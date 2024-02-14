@@ -14,7 +14,7 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends \
       uuid-dev \
       dmidecode
 RUN mkdir /packages && chown 777 /packages
-COPY ovs/build_hsflowd /root/build_hsflowd
+COPY onos/build_hsflowd /root/build_hsflowd
 RUN chmod +x /root/build_hsflowd && \
     /root/build_hsflowd
 
