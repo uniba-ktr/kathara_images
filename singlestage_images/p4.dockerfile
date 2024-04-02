@@ -72,10 +72,10 @@ RUN cd behavioral-model/tools && make install && \
 	cd / && mv behavioral-model/tools . && \
 	rm -Rf behavioral-model/
 
-#RUN python3 -m pip install --no-cache-dir p4runtime && \
+RUN python3 -m pip install --no-cache-dir p4runtime
 #	git clone https://github.com/p4lang/tutorials.git && \
 #	mv tutorials/utils/p4runtime_lib /usr/local/lib/python3.7/site-packages/p4runtime_lib && \
 #	rm -Rf tutorials
 
 ENV PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION python
-ENV PYTHONPATH $PYTHONPATH:/usr/local/lib/python3.7/site-packages/
+ENV PYTHONPATH $PYTHONPATH:/usr/local/lib/python3.10/site-packages/
