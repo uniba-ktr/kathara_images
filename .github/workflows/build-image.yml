@@ -17,7 +17,7 @@ jobs:
   simple_base_images:
     strategy:
       matrix:
-        base_images: [alpine, debian]
+        base_images: [alpine, debian, ubuntu]
     runs-on: ubuntu-latest
     steps:
      - name: Checkout
@@ -41,7 +41,7 @@ jobs:
     needs: simple_base_images
     strategy:
       matrix:
-        singlestage_images: [ab, apache, coredns, frr, ipv6, ovs, quagga, traefik, wireguard]
+        singlestage_images: [ab, apache, coredns, frr, ipv6, quagga, traefik, wireguard, sflowrt]
     runs-on: ubuntu-latest
     steps:
      - name: Checkout
@@ -74,7 +74,7 @@ jobs:
      - name: List images
        run: docker image ls -a
 
-  simple_singlestage_images_debian:
+  simple_singlestage_images_ubuntu:
     needs: simple_base_images
     strategy:
       matrix:
@@ -87,11 +87,11 @@ jobs:
      - name: Download artifact
        uses: actions/download-artifact@v3
        with:
-         name: debian
+         name: ubuntu
          path: /tmp
      - name: Load image
        run: |
-         docker load --input /tmp/debian.tar
+         docker load --input /tmp/ubuntu.tar
          docker image ls -a
      - name: Set up Docker Buildx
        uses: docker/setup-buildx-action@v2
@@ -106,7 +106,7 @@ jobs:
          load: true
          tags: ${{ env.REGISTRY }}/${{ matrix.singlestage_images }}:${{ env.BRANCH_NAME }}
          build-args: |
-           image=${{ env.REGISTRY }}/debian:${{ env.BRANCH_NAME }}
+           image=${{ env.REGISTRY }}/ubuntu:${{ env.BRANCH_NAME }}
 
      - name: List images
        run: docker image ls -a
@@ -115,7 +115,7 @@ jobs:
     needs: simple_base_images
     strategy:
       matrix:
-        multistage_images: [softether, whoami]
+        multistage_images: [softether, whoami, ovs]
     runs-on: ubuntu-latest
     steps:
      - name: Checkout
