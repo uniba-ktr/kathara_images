@@ -48,7 +48,7 @@ jobs:
        uses: actions/checkout@v3.4.0
      # https://github.com/docker/setup-buildx-action
      - name: Download artifact
-       uses: actions/download-artifact@v3
+       uses: actions/download-artifact@v4
        with:
          name: alpine
          path: /tmp
@@ -85,7 +85,7 @@ jobs:
        uses: actions/checkout@v3.4.0
      # https://github.com/docker/setup-buildx-action
      - name: Download artifact
-       uses: actions/download-artifact@v3
+       uses: actions/download-artifact@v4
        with:
          name: ubuntu
          path: /tmp
@@ -122,7 +122,7 @@ jobs:
        uses: actions/checkout@v3.4.0
      # https://github.com/docker/setup-buildx-action
      - name: Download artifact
-       uses: actions/download-artifact@v3
+       uses: actions/download-artifact@v4
        with:
          name: alpine
          path: /tmp
@@ -160,7 +160,7 @@ jobs:
        uses: actions/checkout@v3.4.0
      # https://github.com/docker/setup-buildx-action
      - name: Download artifact
-       uses: actions/download-artifact@v3
+       uses: actions/download-artifact@v4
        with:
          name: debian
          path: /tmp
